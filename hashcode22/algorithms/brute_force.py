@@ -15,13 +15,14 @@ class BruteForceAlgorithm:
 
     def solve(self, problem: Problem):
         ingredients = problem.get_ingredients()
+        best_score, best_pizza = 0, None
         for ingredients_ in self._powerset(ingredients):
-            pizza = self._make_pizza(ingredients)
+            pizza = self._make_pizza(ingredients_)
             score = problem.get_score(pizza)
-            if score > 0:
-                pass
-
-        return None
+            if score > best_score:
+                score = best_score
+                best_pizza = pizza
+        return best_pizza
 
     def _make_pizza(self, ingredients: Iterable[set]):
         return Pizza(ingredients=ingredients)

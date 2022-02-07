@@ -1,10 +1,11 @@
-from .algorithms.brute_force import BruteForceAlgorithm
+from hashcode22.algorithms.brute_force import BruteForceAlgorithm
 from file_parser import FileParser
 from problem import Problem
 
 
 def main(problem):
     solution = BruteForceAlgorithm().solve(problem=problem)
+    print(solution)
 
 
 if __name__ == "__main__":

@@ -1,5 +1,5 @@
-from ..file_parser import FileParser
-from ..problem import Problem
+from hashcode22.file_parser import FileParser
+from hashcode22.problem import Problem
 from pytest import fixture
 
 

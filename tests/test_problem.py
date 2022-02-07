@@ -1,4 +1,4 @@
-from ..problem import Problem
+from hashcode22.problem import Problem
 from unittest.mock import Mock
 
 

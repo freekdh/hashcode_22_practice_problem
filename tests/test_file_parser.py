@@ -1,5 +1,5 @@
 from pytest import fixture
-from ..file_parser import FileParser
+from hashcode22.file_parser import FileParser
 
 
 @fixture

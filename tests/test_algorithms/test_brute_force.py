@@ -1,4 +1,4 @@
-from ...algorithms.brute_force import BruteForceAlgorithm
+from hashcode22.algorithms.brute_force import BruteForceAlgorithm
 from ..fixtures import toy_problem
 
 
