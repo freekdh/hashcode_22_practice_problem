@@ -1,11 +1,12 @@
 from hashcode22.algorithms.brute_force import BruteForceAlgorithm
 from file_parser import FileParser
+from hashcode22.output_writer import OutputWriter
 from problem import Problem
 
 
 def main(problem):
     solution = BruteForceAlgorithm().solve(problem=problem)
-    print(solution)
+    OutputWriter().write(solution, "test.txt")
 
 
 if __name__ == "__main__":

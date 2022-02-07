@@ -1,5 +1,7 @@
 from itertools import chain, combinations
 from typing import Iterable
+
+from hashcode22.solution import Solution
 from ..problem import Problem
 from dataclasses import dataclass
 
@@ -22,7 +24,7 @@ class BruteForceAlgorithm:
             if score > best_score:
                 score = best_score
                 best_pizza = pizza
-        return best_pizza
+        return Solution(pizza=best_pizza)
 
     def _make_pizza(self, ingredients: Iterable[set]):
         return Pizza(ingredients=ingredients)
