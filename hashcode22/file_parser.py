@@ -11,7 +11,7 @@ class Client:
     def will_eat_pizza(self, pizza):
         if self.liked_ingredients.issubset(
             pizza.ingredients
-        ) and not self.disliked_ingredients.intersection(pizza.ingredients):
+        ) and not self.disliked_ingredients & pizza.ingredients:
             return True
         else:
             return False

@@ -6,11 +6,11 @@ from problem import Problem
 
 def main(problem):
     solution = BruteForceAlgorithm().solve(problem=problem)
-    OutputWriter().write(solution, "test.txt")
+    OutputWriter().write(solution, "/mnt/c/Users/freek/git/HashCode22/test.txt")
 
 
 if __name__ == "__main__":
-    input_file = "data/a_an_example.in.txt"
+    input_file = "data/toy_example.txt"
     file_parser = FileParser()
     clients = file_parser.parse(input_file)
     problem = Problem(clients=clients)
