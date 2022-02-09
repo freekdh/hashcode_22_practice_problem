@@ -7,5 +7,5 @@ class OutputWriter:
             file.write(str(solution.n_ingredients))
             for ingredient in solution.ingredients:
                 file.write(f" {ingredient}")
-        
+
         print("Done!")

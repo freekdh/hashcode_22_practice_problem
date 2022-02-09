@@ -1,7 +1,6 @@
 from file_parser import FileParser
 from problem import Problem
 
-from hashcode22.algorithms.annealing import Annealing
 from hashcode22.algorithms.brute_force import BruteForceAlgorithm
 from hashcode22.algorithms.genetic_algorithm import GeneticAlgorithm
 from hashcode22.algorithms.max_clique import MaxClique
@@ -17,10 +16,9 @@ problems = [
 
 
 if __name__ == "__main__":
-    index = 3
-
+    index = 0
     file_parser = FileParser()
     clients = file_parser.parse(f"data/{problems[index]}")
     problem = Problem(clients=clients)
-    solution = GeneticAlgorithm().solve(problem=problem)
-    # OutputWriter().write(solution, f"solution_{index}.txt")
+    solution = MaxClique().solve(problem=problem)
+    OutputWriter().write(solution, f"solution_{index}.txt")

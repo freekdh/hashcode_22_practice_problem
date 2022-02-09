@@ -1,9 +1,9 @@
-from itertools import combinations, islice
-from typing import Iterable
+from itertools import chain, combinations, islice
+from typing import Iterable, List
 
 import networkx as nx
 import numpy as np
-from networkx.algorithms import find_cliques
+from networkx.algorithms.approximation import max_clique
 
 from hashcode22.file_parser import Client
 from hashcode22.objects.pizza import Pizza
@@ -12,77 +12,49 @@ from hashcode22.solution import Solution
 
 
 class MaxClique:
-    def __init__(self, max_n_clients=50):
-        self._max_n_clients = max_n_clients
-
-    def _get_cliques(self, clients: Iterable[Client]):
-        clients = list(clients)
-        graph = self._get_graph(clients=clients)
-        return list(find_cliques(graph))
-
     def solve(self, problem: Problem):
-        if len(list(problem.clients)) < self._max_n_clients:
-            cliques = self._get_cliques(problem.clients)
-            max_clique = max(cliques, key=len)
-            liked_ingredients, disliked_ingredients = set(), set()
-            for client in max_clique:
-                liked_ingredients.update(client.liked_ingredients)
-            return Solution(pizza=Pizza(ingredients=liked_ingredients))
-        else:
-            clients = list(problem.clients)
-            print("building graph")
-            graph = self._get_graph(clients=clients[:400])
+        max_clique = self._get_max_cliques(problem.clients)
+        liked_ingredients = {
+            chain.from_iterable((client.liked_ingredients for client in max_clique))
+        }
+        liked_ingredients = set()
+        for client in max_clique:
+            liked_ingredients.update(client.liked_ingredients)
+        return Solution(pizza=Pizza(ingredients=liked_ingredients))
 
-            from networkx.algorithms.approximation.clique import max_clique
+    def _get_max_cliques(self, clients: Iterable[Client]) -> List[List]:
+        """Get the max clique (fully connected nodes) where nodes
+        represent the clients. The edges indicate if a client can eat
+        the same pizza as another client. If you find a clique, it means
+        that all clients in the clique can eat the same pizza.
 
-            print("running it")
-            maximum_ = max_clique(graph)
-            breakpoint()
-            cliques = []
-            clients_generator = iter(problem.clients)
-            while True:
-                sample_clients = list(islice(clients_generator, self._max_n_clients))
-                if not sample_clients:
-                    break
-                for clique in self._get_cliques(sample_clients):
-                    cliques.append(clique)
-            sorted_cliques = list(reversed(sorted(cliques, key=len)))
-            new_clients = []
-            for index, clique in enumerate(sorted_cliques):
-                liked_ingredients, disliked_ingredients = set(), set()
-                for client in clique:
-                    liked_ingredients.update(client.liked_ingredients)
-                    disliked_ingredients.update(client.disliked_ingredients)
-                superclient = Client(
-                    customer_id=index,
-                    liked_ingredients=liked_ingredients,
-                    disliked_ingredients=disliked_ingredients,
-                )
-                superclient_weight = len(clique)
-                new_clients.append((superclient, superclient_weight))
+        Args:
+            clients (Iterable[Client]): Clients of the problem.
 
-            weighted_graph = self._get_weighted_graph(new_clients)
-            breakpoint()
+        Returns:
+            [List]: A list of clients that form a clique, meaning they can all
+            eat the same pizza.
+        """
+        graph = self._get_graph(clients=clients)
+        max_clique_ = max_clique(graph)
+        return max_clique_
 
-    def _get_graph(self, clients):
+    def _get_graph(self, clients: Iterable[Client]) -> nx.Graph:
+        """Return a graph with nodes as clients and edges if two clients can eat
+        the same pizza. Meaning that there are no disliked items of client1 in the
+        liked items of client2 and vice versa.
+
+        Args:
+            clients (Iterable[Client]): Clients of the problem.
+
+        Returns:
+            [nx.Graph]: a graph containing clients as nodes and edges between clients
+            that can share the same pizza.
+        """
         graph = nx.Graph()
         for client1, client2 in combinations(clients, 2):
             if not (client1.disliked_ingredients & client2.liked_ingredients) and not (
                 client2.disliked_ingredients & client1.liked_ingredients
             ):
                 graph.add_edge(client1, client2)
-        return graph
-
-    def _get_weighted_graph(self, clients_with_weights):
-        graph = nx.Graph()
-        for (client1, weight1), (client2, weight2) in combinations(
-            clients_with_weights, 2
-        ):
-            if not (client1.disliked_ingredients & client2.liked_ingredients) and not (
-                client2.disliked_ingredients & client1.liked_ingredients
-            ):
-                graph.add_edge(client1, client2)
-                graph.nodes[client1]["weight"] = weight1
-                graph.nodes[client2]["weight"] = weight2
-                print("EDGE!!")
         return graph

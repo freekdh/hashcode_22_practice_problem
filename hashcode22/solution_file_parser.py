@@ -1,7 +1,6 @@
-
-
-from hashcode22.solution import Solution
 from hashcode22.algorithms.brute_force import Pizza
+from hashcode22.solution import Solution
+
 
 class SolutionFileParser:
     def __init__(self):

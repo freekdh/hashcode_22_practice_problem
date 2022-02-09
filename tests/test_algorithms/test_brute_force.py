@@ -1,8 +1,11 @@
+import filecmp
+
 from hashcode22.algorithms.brute_force import BruteForceAlgorithm
 from hashcode22.output_writer import OutputWriter
 from hashcode22.solution_file_parser import SolutionFileParser
+
 from ..fixtures import toy_problem
-import filecmp
+
 
 def test_brute_force(toy_problem, tmp_path):
     brute_force = BruteForceAlgorithm()
