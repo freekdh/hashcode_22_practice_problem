@@ -11,7 +11,7 @@ from hashcode22.solution import Solution
 class GeneticAlgorithm(BaseSolver):
     def _solve(self, problem: Problem):
         def fitness_func(solution, solution_idx):
-            return self.objective_function_array(solution)
+            return self.objective_function_solution_list(solution)
 
         ga_instance = pygad.GA(
             num_generations=200,
