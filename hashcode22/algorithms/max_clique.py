@@ -5,14 +5,15 @@ import networkx as nx
 import numpy as np
 from networkx.algorithms.approximation import max_clique
 
+from hashcode22.algorithms.base_solver import BaseSolver
 from hashcode22.file_parser import Client
 from hashcode22.objects.pizza import Pizza
 from hashcode22.problem import Problem
 from hashcode22.solution import Solution
 
 
-class MaxClique:
-    def solve(self, problem: Problem):
+class MaxClique(BaseSolver):
+    def _solve(self, problem: Problem):
         max_clique = self._get_max_cliques(problem.clients)
         liked_ingredients = {
             chain.from_iterable((client.liked_ingredients for client in max_clique))

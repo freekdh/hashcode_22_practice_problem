@@ -2,18 +2,19 @@ from dataclasses import dataclass
 from itertools import chain, combinations
 from typing import Iterable
 
+from hashcode22.algorithms.base_solver import BaseSolver
 from hashcode22.objects.pizza import Pizza
 from hashcode22.problem import Problem
 from hashcode22.solution import Solution
 
 
-class BruteForceAlgorithm:
+class BruteForceAlgorithm(BaseSolver):
     """The brute force algorithm simply explores all possible
     ingredient combinations and chooses the combintation that
     leads to the most clients eating the pizza.
     """
 
-    def solve(self, problem: Problem):
+    def _solve(self, problem: Problem):
         ingredients = problem.get_ingredients()
         best_score, best_pizza = 0, None
         for consider_ingredients in self._powerset(ingredients):
