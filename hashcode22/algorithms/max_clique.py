@@ -4,6 +4,7 @@ from typing import Iterable, List
 import networkx as nx
 import numpy as np
 from networkx.algorithms.approximation import max_clique
+from networkx.algorithms.clique import find_cliques
 
 from hashcode22.algorithms.base_solver import BaseSolver
 from hashcode22.file_parser import Client
@@ -13,6 +14,9 @@ from hashcode22.solution import Solution
 
 
 class MaxClique(BaseSolver):
+    def __init__(self, heuristic=False):
+        self._heuristic = heuristic
+
     def _solve(self, problem: Problem):
         max_clique = self._get_max_cliques(problem.clients)
         liked_ingredients = {
@@ -37,7 +41,11 @@ class MaxClique(BaseSolver):
             eat the same pizza.
         """
         graph = self._get_graph(clients=clients)
-        max_clique_ = max_clique(graph)
+        if self._heuristic:
+            max_clique_ = max_clique(graph)
+        else:
+            max_clique_ = next(reversed(sorted(list(find_cliques(graph)), key=len)))
+
         return max_clique_
 
     def _get_graph(self, clients: Iterable[Client]) -> nx.Graph:

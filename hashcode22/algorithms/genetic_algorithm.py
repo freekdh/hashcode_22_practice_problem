@@ -25,6 +25,7 @@ class GeneticAlgorithm(BaseSolver):
             crossover_type="single_point",
             mutation_type="random",
             mutation_percent_genes=10,
+            suppress_warnings=True,
         )
 
         ga_instance.run()

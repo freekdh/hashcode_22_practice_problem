@@ -45,10 +45,13 @@ class BaseSolver:
             pizza (Pizza): [description]
         """
         solution_list = self.pizza_to_solution_list(pizza)
-        return self.objective_function_array(solution_list)
+        return self.objective_function_solution_list(solution_list)
 
     def pizza_to_solution_list(self, pizza: Pizza):
-        raise NotImplementedError
+        solution_list = [0] * len(self._ingredient_to_index)
+        for ingredient in pizza.ingredients:
+            solution_list[self._ingredient_to_index[ingredient]] = 1
+        return solution_list
 
     def solution_list_to_pizza(self, solution_list: List):
         raise NotImplementedError

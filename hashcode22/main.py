@@ -14,11 +14,22 @@ problems = [
     "e_elaborate.in.txt",
 ]
 
+algorithms = [
+    BruteForceAlgorithm(),
+    GeneticAlgorithm(),
+    MaxClique(),
+    MaxClique(heuristic=True),
+]
 
 if __name__ == "__main__":
-    index = 0
+    index = 2
     file_parser = FileParser()
     clients = file_parser.parse(f"data/{problems[index]}")
     problem = Problem(clients=clients)
-    solution = MaxClique().solve(problem=problem)
-    OutputWriter().write(solution, f"solution_{index}.txt")
+
+    for algorithm in algorithms:
+        solution = algorithm.solve(problem=problem)
+
+        print(
+            f"algorithm {algorithm} f: = {algorithm.objective_function_pizza(pizza=solution.pizza)}"
+        )
