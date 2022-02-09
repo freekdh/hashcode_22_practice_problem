@@ -5,8 +5,12 @@ from typing import Iterable
 
 @dataclass(frozen=True, eq=False)
 class Client:
+    customer_id: int
     liked_ingredients: set
     disliked_ingredients: set
+
+    def __repr__(self):
+        return str(self.customer_id)
 
     def will_eat_pizza(self, pizza):
         if self.liked_ingredients.issubset(
@@ -35,6 +39,7 @@ class FileParser:
                 disliked_ingredients = set(disliked_ingredients_line[1:])
 
                 yield Client(
+                    customer_id=customer_id,
                     liked_ingredients=liked_ingredients,
                     disliked_ingredients=disliked_ingredients,
                 )

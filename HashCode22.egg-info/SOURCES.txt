@@ -5,4 +5,7 @@ HashCode22.egg-info/dependency_links.txt
 HashCode22.egg-info/top_level.txt
 hashcode22/file_parser.py
 hashcode22/main.py
+hashcode22/output_writer.py
 hashcode22/problem.py
+hashcode22/solution.py
+hashcode22/solution_file_parser.py

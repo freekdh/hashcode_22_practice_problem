@@ -5,5 +5,5 @@ from pytest import fixture
 
 @fixture(scope="session")
 def toy_problem():
-    clients = FileParser().parse(file_path="data/toy_example.txt")
+    clients = FileParser().parse(file_path="data/c_coarse.in.txt")
     return Problem(clients=clients)

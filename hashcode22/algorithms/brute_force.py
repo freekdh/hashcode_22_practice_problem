@@ -2,13 +2,10 @@ from itertools import chain, combinations
 from typing import Iterable
 
 from hashcode22.solution import Solution
-from ..problem import Problem
+from hashcode22.problem import Problem
 from dataclasses import dataclass
+from hashcode22.algorithms.pizza import Pizza
 
-
-@dataclass
-class Pizza:
-    ingredients: set
 
 
 class BruteForceAlgorithm:
