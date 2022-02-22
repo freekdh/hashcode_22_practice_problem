@@ -9,23 +9,23 @@ from hashcode22.algorithms.greedy_max_clique import GreedyMaxClique
 from hashcode22.output_writer import OutputWriter
 
 problems = {
-    'a':"a_an_example.in.txt",
-    'b':"b_basic.in.txt",
-    'c':"c_coarse.in.txt",
-    'd':"d_difficult.in.txt",
-    'e':"e_elaborate.in.txt",
+    "a": "a_an_example.in.txt",
+    "b": "b_basic.in.txt",
+    "c": "c_coarse.in.txt",
+    "d": "d_difficult.in.txt",
+    "e": "e_elaborate.in.txt",
 }
 
 algorithms = {
     # 'brute_force': BruteForceAlgorithm(),
-    'genetic': GeneticAlgorithm(),
+    "genetic": GeneticAlgorithm(),
     # 'max_clique': MaxClique()
-    'greedy_max_clique': GreedyMaxClique()
-    }
+    "greedy_max_clique": GreedyMaxClique(),
+}
 
 if __name__ == "__main__":
     t_init = time()
-    for problem_ix in ['d', 'e']:
+    for problem_ix in ["d", "e"]:
         for i in range(2):
             print(f"\nSolving problem {problem_ix}")
             file_parser = FileParser()

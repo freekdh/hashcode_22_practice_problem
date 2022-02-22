@@ -15,7 +15,7 @@ class MaxClique(BaseSolver):
         self._print_stats = print_stats
 
     def _solve(self, problem: Problem):
-        client_dict = {client.customer_id:client for client in problem.clients}
+        client_dict = {client.customer_id: client for client in problem.clients}
         self.n_clients = problem.n_clients
         G = self._get_graph(problem.clients, problem.n_clients)
         max_clique = self._get_max_clique(G)
@@ -43,7 +43,7 @@ class MaxClique(BaseSolver):
 
         return max_clique
 
-    def _get_graph(self, clients: Iterable[Client], n_clients:int) -> nk.Graph:
+    def _get_graph(self, clients: Iterable[Client], n_clients: int) -> nk.Graph:
         """Return a graph with nodes as clients and edges if two clients can eat
         the same pizza. Meaning that there are no disliked items of client1 in the
         liked items of client2 and vice versa.
@@ -62,9 +62,9 @@ class MaxClique(BaseSolver):
                 client2.disliked_ingredients & client1.liked_ingredients
             ):
                 G.addEdge(client1.customer_id, client2.customer_id)
-        print('Graph built, done!')
+        print("Graph built, done!")
         if self._print_stats:
-            print('='*45)
+            print("=" * 45)
             nk.overview(G)  # Get statistics on graph
-            print('='*45)
+            print("=" * 45)
         return G
