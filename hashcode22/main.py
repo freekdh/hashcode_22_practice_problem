@@ -1,6 +1,5 @@
 from file_parser import FileParser
 from problem import Problem
-from time import time
 
 from hashcode22.algorithms.brute_force import BruteForceAlgorithm
 from hashcode22.algorithms.genetic_algorithm import GeneticAlgorithm
@@ -23,8 +22,15 @@ algorithms = {
     "greedy_max_clique": GreedyMaxClique(),
 }
 
+
+def get_problems(problem_paths):
+    for problem_path in problem_paths:
+        file_parser = FileParser()
+        clients = file_parser.parse(f"data/{problem_path}")
+        yield Problem(clients=clients)
+
+
 if __name__ == "__main__":
-    t_init = time()
     for problem_ix in ["d", "e"]:
         for i in range(2):
             print(f"\nSolving problem {problem_ix}")
@@ -39,4 +45,4 @@ if __name__ == "__main__":
                 print(
                     f"algorithm {algorithm} f: = {algorithms[algorithm].objective_function_pizza(pizza=solution.pizza)}"
                 )
-    print(f"total time = {time() - t_init}")
+                output_writer.write(solution, f"./problem_{i}.txt")
