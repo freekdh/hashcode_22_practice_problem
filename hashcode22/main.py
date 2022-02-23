@@ -5,6 +5,7 @@ from hashcode22.algorithms.brute_force import BruteForceAlgorithm
 from hashcode22.algorithms.genetic_algorithm import GeneticAlgorithm
 from hashcode22.algorithms.max_clique import MaxClique
 from hashcode22.algorithms.greedy_max_clique import GreedyMaxClique
+from hashcode22.algorithms.local_search import LocalSearch
 from hashcode22.output_writer import OutputWriter
 
 problems = {
@@ -17,9 +18,10 @@ problems = {
 
 algorithms = {
     # 'brute_force': BruteForceAlgorithm(),
-    "genetic": GeneticAlgorithm(),
+    # "genetic": GeneticAlgorithm(),
     # 'max_clique': MaxClique()
-    "greedy_max_clique": GreedyMaxClique(),
+    # "greedy_max_clique": GreedyMaxClique(),
+    "local_search": LocalSearch(),
 }
 
 
@@ -31,8 +33,9 @@ def get_problems(problem_paths):
 
 
 if __name__ == "__main__":
-    for problem_ix in ["d", "e"]:
-        for i in range(2):
+    output_writer = OutputWriter()
+    for problem_ix in ["e"]:
+        for i in range(1):
             print(f"\nSolving problem {problem_ix}")
             file_parser = FileParser()
             file_path = f"data/{problems[problem_ix]}"
@@ -45,4 +48,4 @@ if __name__ == "__main__":
                 print(
                     f"algorithm {algorithm} f: = {algorithms[algorithm].objective_function_pizza(pizza=solution.pizza)}"
                 )
-                output_writer.write(solution, f"./problem_{i}.txt")
+                # output_writer.write(solution, f"./problem_{i}.txt")
